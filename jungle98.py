@@ -209,7 +209,7 @@ while True:
                 sample2_data[selected_sample2].play()
 
     if main_clock.get_fps() > 30:
-        time_bar.move_ip(float(s_tempo) * (float(main_clock.get_fps()) * system_fps), 0)
+        time_bar.move_ip(float(s_tempo) * (float(main_clock.get_fps()) / system_fps), 0)
     else:
         time_bar.move_ip(float(s_tempo), 0)
     window_surface.fill(black_color)
