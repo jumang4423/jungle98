@@ -186,16 +186,11 @@ if selected_sample1 != -1:
 if selected_sample2 != -1:
     sample2_data[selected_sample2].play()
 
-def update_fps():
-	fps = str(int(main_clock.get_fps()))
-	fps_text = font.render(fps, 1, pygame.Color("coral"))
-	return fps_text
-
 while True:
     dt = main_clock.tick(float(system_fps))
     # on_list = []
 
-    window_surface.blit(update_fps(), (10,0))
+    print(str(int(main_clock.get_fps())))
 
     for event in pygame.event.get():
         if event.type == QUIT:
@@ -214,8 +209,6 @@ while True:
                 sample1_data[selected_sample1].play()
             if selected_sample2 != -1:
                 sample2_data[selected_sample2].play()
-
-    print(s_tempo)
     time_bar.move_ip(float(s_tempo), 0)
     window_surface.fill(black_color)
     for track in track_list:
