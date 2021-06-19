@@ -81,6 +81,7 @@ class SoundSquare:
         self.rect = pygame.Rect(x_pos, y_pos, self.sizex, self.sizey)
         self.sound = pygame.mixer.Sound(audio_file)
         self.sound.set_volume(0.6)
+        self.shock = 0
 
     def get_state(self):
         return self._state
@@ -159,6 +160,7 @@ def collide(time_bar, track_list):
             ):
                 if sound_square._state == True:
                     sound_square.sound.play()
+                    sound_square.shock = 5
 
 
 # set up sound squares
@@ -223,6 +225,9 @@ while True:
     window_surface.fill(black_color)
     for track in track_list:
         for sound_square in track:
+            if sound_square.shock > 0:
+                sound_square.shock -= 1
+            sound_square.rect = pygame.transform.scale(sound_square.rect, (sound_square.sizex + sound_square.shock, sound_square.sizey + sound_square.shock), DestSurface = None)
             sound_square.render()
 
     render_text()
