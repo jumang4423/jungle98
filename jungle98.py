@@ -18,7 +18,7 @@ window_size = {"width": blockSizex * (sequence_number + 1), "height": blockSizey
 project_name = "Solar_Glide"
 tempo = 168
 # objects 2
-system_fps = 60
+system_fps = 30
 s_tempo = float(blockSizex * tempo) / float(60.0 * system_fps)
 # mixer inits
 pygame.mixer.pre_init(
