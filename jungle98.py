@@ -227,7 +227,7 @@ while True:
         for sound_square in track:
             if sound_square.shock > 0:
                 sound_square.shock -= 1
-            sound_square.rect = pygame.transform.scale(sound_square.rect, (sound_square.sizex + sound_square.shock, sound_square.sizey + sound_square.shock), DestSurface = None)
+            sound_square.rect = pygame.transform.scale(sound_square.rect, (sound_square.sizex + sound_square.shock, sound_square.sizey + sound_square.shock))
             sound_square.render()
 
     render_text()
