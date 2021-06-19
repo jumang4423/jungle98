@@ -11,7 +11,7 @@ sequence_number = 16
 blockSizex = 50
 blockSizey = 50
 # system variables
-title = 'jungle98'
+title = "jungle98"
 audioSettings = {"frequency": 44100, "size": -16, "channels": 2, "buffer": 2048}
 window_size = {"width": blockSizex * (sequence_number + 1), "height": blockSizey * 14}
 # sounds sequences
@@ -19,7 +19,7 @@ project_name = "Solar_Glide"
 tempo = 149
 # objects 2
 system_fps = 60.0
-s_tempo = 4 # float(blockSizex * tempo) / float(60.0 * system_fps)
+s_tempo = 4  # float(blockSizex * tempo) / float(60.0 * system_fps)
 # mixer inits
 pygame.mixer.pre_init(
     audioSettings["frequency"],
@@ -33,25 +33,22 @@ pygame.init()
 black_color = (0, 0, 0)
 white_color = (200, 200, 200)
 main_clock = pygame.time.Clock()
-window_surface = pygame.display.set_mode((
-    window_size["width"],
-    window_size["height"]))
+window_surface = pygame.display.set_mode((window_size["width"], window_size["height"]))
 pygame.display.set_caption(title)
 # font settings
 font = pygame.font.SysFont(None, 18)
-# _empty_bar =  pygame.Rect(2, window_size["height"] - blockSize, 0, 0) # pygame.image.load("images/bar.png").convert()
-# time_bar = pygame.draw.rect(window_surface, white_color, _empty_bar, 0)
 
 # bar image load
-time_bar_image = pygame.image.load('images/bar.png').convert()
+time_bar_image = pygame.image.load("images/bar.png").convert()
 time_bar = time_bar_image.get_rect()
 # bak image load
-bak_image = pygame.image.load('images/bak.png').convert()
-bak_bar= bak_image.get_rect()
+bak_image = pygame.image.load("images/bak.png").convert()
+bak_bar = bak_image.get_rect()
 # drum memories
 _jsonPath = "./" + project_name + "/breaks/meta.json"
 with open(_jsonPath, encoding="utf-8", mode="r") as f:
     import json
+
     d = json.load(f)
 # load sounds
 break_list = []
@@ -62,6 +59,7 @@ for json in d:
 _jsonPath = "./" + project_name + "/ambient/meta.json"
 with open(_jsonPath, encoding="utf-8", mode="r") as f:
     import json
+
     d = json.load(f)
 # load sounds
 sample1_list = []
@@ -71,6 +69,7 @@ for json in d:
         sample1_list.append("./" + project_name + "/ambient/" + json["data"])
     else:
         sample2_list.append("./" + project_name + "/ambient/" + json["data"])
+
 
 class SoundSquare:
     def __init__(self, audio_file, x_pos, y_pos, track_num):
@@ -95,10 +94,12 @@ class SoundSquare:
         else:
             window_surface.blit(self.on, self.rect)
 
+
 def change_state(sound_square):
     mouse_pos = pygame.mouse.get_pos()
     if sound_square.rect.collidepoint(mouse_pos):
         sound_square.toggle_state()
+
 
 # Text rendering
 def render_text():
@@ -131,9 +132,11 @@ def render_text():
     window_surface.blit(render_text, render_text_rect)
     y += float(window_size["height"]) / float(len(break_list) + 6)
 
+
 def terminate():
     pygame.quit()
     sys.exit()
+
 
 def wait_for_player_to_press_key():
     while True:
@@ -150,7 +153,10 @@ def wait_for_player_to_press_key():
 def collide(time_bar, track_list):
     for track in track_list:
         for sound_square in track:
-            if time_bar.right >= sound_square.rect.left -2 and time_bar.right < sound_square.rect.left +2:
+            if (
+                time_bar.right >= sound_square.rect.left - s_tempo / 2
+                and time_bar.right < sound_square.rect.left + s_tempo / 2
+            ):
                 if sound_square._state == True:
                     sound_square.sound.play()
 
@@ -160,7 +166,9 @@ track_list = []
 for j in range(len(break_list)):
     track_list.append([])
     for i in range(0, sequence_number):
-        sound_square = SoundSquare(break_list[j], blockSizex * (i+ 1), blockSizey * (j+ 3) , j)
+        sound_square = SoundSquare(
+            break_list[j], blockSizex * (i + 1), blockSizey * (j + 3), j
+        )
         track_list[j].append(sound_square)
 
 # set up ambients
@@ -178,7 +186,7 @@ for j in range(len(sample2_list)):
 time_bar.right = blockSizex
 time_bar.top = blockSizey * 3
 
-where_half = 0 # 0 -> 8 -> 16
+where_half = 0  # 0 -> 8 -> 16
 
 # play only sample
 if selected_sample1 != -1:
@@ -198,11 +206,11 @@ while True:
                 for sound_square in track:
                     change_state(sound_square)
 
-    if float(time_bar.right) > float(window_size["width"]) - float(s_tempo) -1.0:
-        time_bar.right = float(blockSizex) -s_tempo
+    if float(time_bar.right) > float(window_size["width"]) - float(s_tempo) - 1.0:
+        time_bar.right = float(blockSizex) - s_tempo
         where_half += 8
 
-        if(where_half & 8 == 0):
+        if where_half & 8 == 0:
             if selected_sample1 != -1:
                 sample1_data[selected_sample1].play()
             if selected_sample2 != -1:
