@@ -57,7 +57,6 @@ with open(_jsonPath, encoding="utf-8", mode="r") as f:
 break_list = []
 for json in d:
     break_list.append("./" + project_name + "/breaks/" + json["data"])
-print(break_list)
 
 # ambient memories
 _jsonPath = "./" + project_name + "/ambient/meta.json"
@@ -209,8 +208,6 @@ while True:
             if selected_sample2 != -1:
                 sample2_data[selected_sample2].play()
 
-
-    print(float(dt))
     time_bar.move_ip(float(s_tempo * (float(dt if dt >= 14 and dt <= 18 else 17)) / 16.0), 0)
     window_surface.fill(black_color)
     for track in track_list:
@@ -224,4 +221,3 @@ while True:
     window_surface.blit(bak_image, bak_bar)
 
     pygame.display.update()
-    main_clock.tick(system_fps)
