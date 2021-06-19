@@ -18,7 +18,7 @@ window_size = {"width": blockSizex * (sequence_number + 1), "height": blockSizey
 project_name = "Solar_Glide"
 tempo = 168
 # objects 2
-system_fps = 60
+system_fps = 60.0
 s_tempo = float(blockSizex * tempo) / float(60.0 * system_fps)
 # mixer inits
 pygame.mixer.pre_init(
@@ -190,8 +190,6 @@ while True:
     dt = main_clock.tick(float(system_fps))
     # on_list = []
 
-    print(str(int(main_clock.get_fps())))
-
     for event in pygame.event.get():
         if event.type == QUIT:
             terminate()
@@ -209,7 +207,9 @@ while True:
                 sample1_data[selected_sample1].play()
             if selected_sample2 != -1:
                 sample2_data[selected_sample2].play()
-    time_bar.move_ip(float(s_tempo), 0)
+
+    if main_clock.get_fps() > 30:
+        time_bar.move_ip(float(s_tempo) * (float(main_clock.get_fps()) * system_fps), 0)
     window_surface.fill(black_color)
     for track in track_list:
         for sound_square in track:
