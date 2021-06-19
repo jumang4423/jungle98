@@ -208,7 +208,7 @@ while True:
             if selected_sample2 != -1:
                 sample2_data[selected_sample2].play()
 
-    print(dt)
+    print(s_tempo)
     time_bar.move_ip(float(s_tempo), 0)
     window_surface.fill(black_color)
     for track in track_list:
