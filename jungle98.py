@@ -16,10 +16,10 @@ audioSettings = {"frequency": 44100, "size": -16, "channels": 2, "buffer": 2048}
 window_size = {"width": blockSizex * (sequence_number + 1), "height": blockSizey * 14}
 # sounds sequences
 project_name = "Solar_Glide"
-# tempo = 168
+tempo = 168
 # objects 2
 system_fps = 60
-s_tempo = 9
+s_tempo = float(blockSizex * tempo) / float(60.0 * system_fps)
 # mixer inits
 pygame.mixer.pre_init(
     audioSettings["frequency"],
@@ -198,8 +198,8 @@ while True:
                 for sound_square in track:
                     change_state(sound_square)
 
-    if time_bar.right > window_size["width"] - s_tempo -1:
-        time_bar.right = blockSizex -s_tempo
+    if float(time_bar.right) > float(window_size["width"]) - float(s_tempo) -1.0:
+        time_bar.right = float(blockSizex) -s_tempo
         where_half += 8
 
         if(where_half & 8 == 0):
@@ -208,6 +208,7 @@ while True:
             if selected_sample2 != -1:
                 sample2_data[selected_sample2].play()
 
+    print(dt)
     time_bar.move_ip(float(s_tempo * (float(dt if dt >= 14 and dt <= 18 else 17)) / 16.0), 0)
     window_surface.fill(black_color)
     for track in track_list:
