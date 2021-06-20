@@ -92,10 +92,10 @@ class SoundSquare:
         from pydub import AudioSegment
         _hoge = AudioSegment.from_file(audio_file, "wav")
         _hoge = _hoge.reverse()
-        self.reverse_sound = pygame.mixer.Sound(_hoge._data)
+        self.reverse_sound = pygame.mixer.Sound(_hoge.get_array_of_samples())
         _hoge = AudioSegment.from_file(audio_file, "wav")
         _hoge = _hoge + _hoge
-        self.twin_sound = pygame.mixer.Sound(_hoge._data)
+        self.twin_sound = pygame.mixer.Sound(_hoge.get_array_of_samples())
 
     def get_state(self):
         return self._state
