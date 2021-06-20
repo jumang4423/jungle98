@@ -148,9 +148,9 @@ def render_text(
         y += float(window_size["height"]) / float(len(break_list) + 6)
     # s1
     if selected_mode == 9:
-        render_text = font.render("*(sam1:     " +  sample2_json[selected_sample2] + ")", True, white_color)
+        render_text = font.render("*(sam1:     " +  sample1_json[selected_sample2] + ")", True, white_color)
     else:
-        render_text = font.render("sam1:     " +  sample2_json[selected_sample2], True, white_color)
+        render_text = font.render("sam1:     " +  sample1_json[selected_sample2], True, white_color)
     render_text_rect = render_text.get_rect(topleft=(x, y))
     window_surface.blit(render_text, render_text_rect)
     y += float(window_size["height"]) / float(len(break_list) + 6)
@@ -305,7 +305,9 @@ while True:
         time_bar.move_ip(float(s_tempo) * (float(main_clock.get_fps()) / system_fps), 0)
     else:
         time_bar.move_ip(float(s_tempo), 0)
+
     window_surface.fill(black_color)
+
     for i, track in enumerate(track_list):
         for j, sound_square in enumerate(track):
             if i == selected_mode - 1 and j == selected_seq:
@@ -314,7 +316,8 @@ while True:
                 sound_square.render(False)
 
     render_text(selected_mode, selected_sample1, selected_sample2, mod_list, mod_select)
-    collide(time_bar, track_list)
+    if mod_select != 0:
+        collide(time_bar, track_list)
 
     window_surface.blit(time_bar_image, time_bar)
     window_surface.blit(bak_image, bak_bar)
