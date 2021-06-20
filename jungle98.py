@@ -64,10 +64,10 @@ with open(_jsonPath, encoding="utf-8", mode="r") as f:
 
     d = json.load(f)
 # load sounds
-sample1_list = []
-sample1_json = []
-sample2_list = []
-sample2_json = []
+sample1_list = ["deactivated"]
+sample1_json = ["deactivated"]
+sample2_list = ["deactivated"]
+sample2_json = ["deactivated"]
 for json in d:
     if json["sample1"] == True:
         sample1_list.append("./projects/" + project_name + "/ambient/" + json["data"])
@@ -206,10 +206,12 @@ for j in range(len(break_list)):
         track_list[j].append(sound_square)
 
 # set up ambients
-selected_sample1 = 0
-selected_sample2 = -1
+selected_sample1 = 1
+selected_sample2 = 0
 sample1_data = []
+sample1_data.append([])
 sample2_data = []
+sample2_data.append([])
 for j in range(len(sample1_list)):
     sound_square = pygame.mixer.Sound(sample1_list[j])
     sample1_data.append(sound_square)
@@ -231,9 +233,9 @@ selected_seq = 0  # y
 seq_tempo = 0
 
 # play only sample
-if selected_sample1 != -1:
+if selected_sample1 != 0:
     sample1_data[selected_sample1].play()
-if selected_sample2 != -1:
+if selected_sample2 != 0:
     sample2_data[selected_sample2].play()
 
 while True:
@@ -252,7 +254,7 @@ while True:
                     seq_tempo = selected_seq
                     selected_seq = mod_select
                 if selected_mode == 8:
-                    selected_sample1 = selected_seq - 1
+                    selected_sample1 = selected_seq
                     selected_seq = seq_tempo
             if event.key == K_DOWN:
                 selected_mode += 1
@@ -260,9 +262,9 @@ while True:
                 # temporary
                 if selected_mode == 9:
                     seq_tempo = selected_seq
-                    selected_seq = selected_sample1 + 1
+                    selected_seq = selected_sample1
                 if selected_mode == 10:
-                    selected_seq = selected_sample2 + 1
+                    selected_seq = selected_sample2
                 if selected_mode == 1:
                     mod_select = selected_seq
                     selected_seq = seq_tempo
@@ -273,10 +275,10 @@ while True:
                     mod_select = selected_seq
                 elif selected_mode == 9:
                     selected_seq = max(0, selected_seq)
-                    selected_sample1 = selected_seq - 1
+                    selected_sample1 = selected_seq
                 elif selected_mode == 10:
                     selected_seq = max(0, selected_seq)
-                    selected_sample2 = selected_seq - 1
+                    selected_sample2 = selected_seq
                 else:
                     selected_seq = max(0, selected_seq)
             if event.key == K_RIGHT:
@@ -286,10 +288,10 @@ while True:
                     mod_select = selected_seq
                 elif selected_mode == 9:
                     selected_seq = min(len(sample1_data) -1, selected_seq)
-                    selected_sample1 = selected_seq - 1
+                    selected_sample1 = selected_seq
                 elif selected_mode == 10:
                     selected_seq = min(len(sample2_data) -1, selected_seq)
-                    selected_sample2 = selected_seq - 1
+                    selected_sample2 = selected_seq
                 else:
                     selected_seq = min(sequence_number, selected_seq)
         if event.type == MOUSEBUTTONDOWN and event.button == 1:
