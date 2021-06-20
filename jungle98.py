@@ -286,6 +286,10 @@ while True:
                     selected_sample2 = selected_seq
                 else:
                     selected_seq = min(sequence_number, selected_seq)
+
+            if event.key == K_SPACE:
+                if selected_mode != 0 and selected_mode != 9 and selected_mode != 10:
+                    track_list[selected_mode-1][selected_seq].toggle_state()
         if event.type == MOUSEBUTTONDOWN and event.button == 1:
             for track in track_list:
                 for sound_square in track:
