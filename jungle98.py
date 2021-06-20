@@ -221,7 +221,7 @@ mod_list = ["deactivated", "break select", "isReverse"]
 where_half = 0  # 0 -> 8 -> 16
 
 selected_mode = 0  # x
-selected_seq = 0  # y
+selected_seq = 1  # y
 
 seq_tempo = 0
 
