@@ -15,7 +15,7 @@ title = "jungle98"
 audioSettings = {"frequency": 44100, "size": -16, "channels": 2, "buffer": 2048}
 window_size = {"width": blockSizex * (sequence_number + 1), "height": blockSizey * 14}
 # sounds sequences
-project_name = "Solar_Glide"
+project_name = "solar_glide"
 tempo = 149
 # objects 2
 system_fps = 60.0
@@ -31,12 +31,12 @@ pygame.mixer.init()
 pygame.init()
 # Colors
 black_color = (0, 0, 0)
-white_color = (200, 200, 200)
+white_color = (200, 200, 255)
 main_clock = pygame.time.Clock()
 window_surface = pygame.display.set_mode((window_size["width"], window_size["height"]))
 pygame.display.set_caption(title)
 # font settings
-font = pygame.font.SysFont(None, 18)
+font = pygame.font.SysFont(None, 20)
 
 # bar image load
 time_bar_image = pygame.image.load("images/bar.png").convert()
@@ -45,7 +45,7 @@ time_bar = time_bar_image.get_rect()
 bak_image = pygame.image.load("images/bak.png").convert()
 bak_bar = bak_image.get_rect()
 # drum memories
-_jsonPath = "./" + project_name + "/breaks/meta.json"
+_jsonPath = "./projects/" + project_name + "/breaks/meta.json"
 with open(_jsonPath, encoding="utf-8", mode="r") as f:
     import json
 
@@ -53,10 +53,10 @@ with open(_jsonPath, encoding="utf-8", mode="r") as f:
 # load sounds
 break_list = []
 for json in d:
-    break_list.append("./" + project_name + "/breaks/" + json["data"])
+    break_list.append("./projects/" + project_name + "/breaks/" + json["data"])
 
 # ambient memories
-_jsonPath = "./" + project_name + "/ambient/meta.json"
+_jsonPath = "./projects/" + project_name + "/ambient/meta.json"
 with open(_jsonPath, encoding="utf-8", mode="r") as f:
     import json
 
@@ -68,10 +68,10 @@ sample2_list = []
 sample2_json = []
 for json in d:
     if json["sample1"] == True:
-        sample1_list.append("./" + project_name + "/ambient/" + json["data"])
+        sample1_list.append("./projects/" + project_name + "/ambient/" + json["data"])
         sample1_json.append(json["data"])
     else:
-        sample2_list.append("./" + project_name + "/ambient/" + json["data"])
+        sample2_list.append("./projects/" + project_name + "/ambient/" + json["data"])
         sample2_json.append(json["data"])
 
 
