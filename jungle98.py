@@ -116,7 +116,7 @@ def render_text(selected_mode, selected_sample1, selected_sample2):
 
     # mod
     if selected_mode == 0:
-        render_text = font.render("(mod:     activated)", True, white_color)
+        render_text = font.render("*(mod:     activated)", True, white_color)
     else:
         render_text = font.render("mod:     activated", True, white_color)
     render_text_rect = render_text.get_rect(topleft=(x, y))
@@ -125,7 +125,7 @@ def render_text(selected_mode, selected_sample1, selected_sample2):
 
     for i in range(len(break_list)):
         if selected_mode == 1 + i:
-            render_text = font.render("(bre" + str(i + 1) + ")", True, white_color)
+            render_text = font.render("*(bre" + str(i + 1) + ")", True, white_color)
         else:
             render_text = font.render("bre" + str(i + 1), True, white_color)
         render_text_rect = render_text.get_rect(center=(x, y))
@@ -137,7 +137,7 @@ def render_text(selected_mode, selected_sample1, selected_sample2):
     if selected_sample1 != -1:
         _sampleName = sample1_json[selected_sample1]
     if selected_mode == 9:
-        render_text = font.render("(sam1:     " + _sampleName + ")", True, white_color)
+        render_text = font.render("*(sam1:     " + _sampleName + ")", True, white_color)
     else:
         render_text = font.render("sam1:     " + _sampleName, True, white_color)
     render_text_rect = render_text.get_rect(topleft=(x, y))
@@ -149,7 +149,7 @@ def render_text(selected_mode, selected_sample1, selected_sample2):
     if selected_sample2 != -1:
         _sampleName = sample2_json[selected_sample2]
     if selected_mode == 10:
-        render_text = font.render("(sam2:     " + _sampleName + ")", True, white_color)
+        render_text = font.render("*(sam2:     " + _sampleName + ")", True, white_color)
     else:
         render_text = font.render("sam2:     " + _sampleName, True, white_color)
     render_text_rect = render_text.get_rect(topleft=(x, y))
