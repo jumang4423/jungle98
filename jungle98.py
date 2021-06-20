@@ -209,14 +209,14 @@ for j in range(len(break_list)):
 selected_sample1 = 1
 selected_sample2 = 0
 sample1_data = []
-sample1_data.append([])
 sample2_data = []
-sample2_data.append([])
 for j in range(len(sample1_list)):
-    sound_square = pygame.mixer.Sound(sample1_list[j])
+    if sample1_list[j] != 'deactivated':
+        sound_square = pygame.mixer.Sound(sample1_list[j])
     sample1_data.append(sound_square)
 for j in range(len(sample2_list)):
-    sound_square = pygame.mixer.Sound(sample2_list[j])
+    if sample2_list[j] != 'deactivated':
+        sound_square = pygame.mixer.Sound(sample2_list[j])
     sample2_data.append(sound_square)
 
 time_bar.right = blockSizex
