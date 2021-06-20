@@ -148,9 +148,9 @@ def render_text(
         y += float(window_size["height"]) / float(len(break_list) + 6)
     # s1
     if selected_mode == 9:
-        render_text = font.render("*(sam1:     " +  sample1_json[selected_sample2] + ")", True, white_color)
+        render_text = font.render("*(sam1:     " +  sample1_json[selected_sample1] + ")", True, white_color)
     else:
-        render_text = font.render("sam1:     " +  sample1_json[selected_sample2], True, white_color)
+        render_text = font.render("sam1:     " +  sample1_json[selected_sample1], True, white_color)
     render_text_rect = render_text.get_rect(topleft=(x, y))
     window_surface.blit(render_text, render_text_rect)
     y += float(window_size["height"]) / float(len(break_list) + 6)
@@ -215,7 +215,7 @@ for j in range(len(sample2_list)):
 time_bar.right = blockSizex
 time_bar.top = blockSizey * 3
 
-mod_select = 0
+mod_select = 1
 mod_list = ["deactivated", "break select", "isReverse"]
 
 where_half = 0  # 0 -> 8 -> 16
