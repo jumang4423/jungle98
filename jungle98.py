@@ -236,10 +236,10 @@ while True:
             if event.key == K_DOWN:
                 selected_mode += 1
                 selected_mode = min(10, selected_mode)
-            if event.key == K_RIGHT:
+            if event.key == K_LEFT:
                 selected_seq -= 1
                 selected_seq = max(0, selected_seq)
-            if event.key == K_LEFT:
+            if event.key == K_RIGHT:
                 selected_seq += 1
                 selected_seq = min(sequence_number, selected_seq)
         if event.type == MOUSEBUTTONDOWN and event.button == 1:
@@ -264,7 +264,7 @@ while True:
     window_surface.fill(black_color)
     for i, track in enumerate(track_list):
         for j, sound_square in enumerate(track):
-            if i == selected_mode + 1 and j == selected_seq:
+            if i == selected_mode - 1 and j == selected_seq:
                 sound_square.render(True)
             else:
                 sound_square.render(False)
