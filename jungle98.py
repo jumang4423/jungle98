@@ -84,8 +84,8 @@ class SoundSquare:
         self.sizey = blockSizey
         self.off = pygame.image.load("images/off.png").convert_alpha()
         self.on = pygame.image.load("images/on.png").convert_alpha()
-        self.off_selected = pygame.image.load("images/off_selected.png").convert_alpha()
-        self.on_selected = pygame.image.load("images/on_selected.png").convert_alpha()
+        self.off_selected = pygame.image.load("images/off_sel.png").convert_alpha()
+        self.on_selected = pygame.image.load("images/on_sel.png").convert_alpha()
         self._state = False
         self.rect = pygame.Rect(x_pos, y_pos, self.sizex, self.sizey)
         self.sound = pygame.mixer.Sound(audio_file)
