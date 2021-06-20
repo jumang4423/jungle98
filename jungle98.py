@@ -63,12 +63,16 @@ with open(_jsonPath, encoding="utf-8", mode="r") as f:
     d = json.load(f)
 # load sounds
 sample1_list = []
+sample1_json = []
 sample2_list = []
+sample2_json = []
 for json in d:
     if json["sample1"] == True:
         sample1_list.append("./" + project_name + "/ambient/" + json["data"])
+        sample1_json.append(json["data"])
     else:
         sample2_list.append("./" + project_name + "/ambient/" + json["data"])
+        sample2_json.append(json["data"])
 
 
 class SoundSquare:
@@ -95,6 +99,7 @@ class SoundSquare:
         else:
             window_surface.blit(self.on, self.rect)
 
+
 def change_state(sound_square):
     mouse_pos = pygame.mouse.get_pos()
     if sound_square.rect.collidepoint(mouse_pos):
@@ -102,7 +107,7 @@ def change_state(sound_square):
 
 
 # Text rendering
-def render_text():
+def render_text(selected_mode, selected_sample1, selected_sample2):
     x = (blockSizex) / 2
     y = (blockSizey) / 2
 
@@ -110,28 +115,45 @@ def render_text():
     y += float(window_size["height"]) * 2 / float(len(break_list) + 6)
 
     # mod
-    render_text = font.render("mod:     activated", True, white_color)
+    if selected_mode == 0:
+        render_text = font.render("(mod:     activated)", True, white_color)
+    else:
+        render_text = font.render("mod:     activated", True, white_color)
     render_text_rect = render_text.get_rect(topleft=(x, y))
     window_surface.blit(render_text, render_text_rect)
     y += float(window_size["height"]) / float(len(break_list) + 6)
 
     for i in range(len(break_list)):
-        render_text = font.render("bre" + str(i + 1), True, white_color)
+        if selected_mode == 1 + i:
+            render_text = font.render("(bre" + str(i + 1) + ")", True, white_color)
+        else:
+            render_text = font.render("bre" + str(i + 1), True, white_color)
         render_text_rect = render_text.get_rect(center=(x, y))
         window_surface.blit(render_text, render_text_rect)
         y += float(window_size["height"]) / float(len(break_list) + 6)
     # s1
-    render_text = font.render("sam1:     sample1-168-1.wav", True, white_color)
+
+    _sampleName = 'deactivated'
+    if selected_sample1 != -1:
+        _sampleName = sample1_json[selected_sample1]
+    if selected_mode == 9:
+        render_text = font.render("(sam1:     " + _sampleName + ")", True, white_color)
+    else:
+        render_text = font.render("sam1:     " + _sampleName, True, white_color)
     render_text_rect = render_text.get_rect(topleft=(x, y))
     window_surface.blit(render_text, render_text_rect)
     y += float(window_size["height"]) / float(len(break_list) + 6)
 
     # s2
-    render_text = font.render("sam2:     deactivated", True, white_color)
+    _sampleName = 'deactivated'
+    if selected_sample2 != -1:
+        _sampleName = sample2_json[selected_sample2]
+    if selected_mode == 10:
+        render_text = font.render("(sam2:     " + _sampleName + ")", True, white_color)
+    else:
+        render_text = font.render("sam2:     " + _sampleName, True, white_color)
     render_text_rect = render_text.get_rect(topleft=(x, y))
     window_surface.blit(render_text, render_text_rect)
-    y += float(window_size["height"]) / float(len(break_list) + 6)
-
 
 def terminate():
     pygame.quit()
@@ -143,10 +165,6 @@ def wait_for_player_to_press_key():
         for event in pygame.event.get():
             if event.type == QUIT:
                 terminate()
-            if event.type == KEYDOWN:
-                if event.key == K_ESCAPE:
-                    terminate()
-                return
 
 
 # Check for collision between time bar and 'on' sound square
@@ -188,6 +206,9 @@ time_bar.top = blockSizey * 3
 
 where_half = 0  # 0 -> 8 -> 16
 
+selected_mode = 0
+selected_seq = 0
+
 # play only sample
 if selected_sample1 != -1:
     sample1_data[selected_sample1].play()
@@ -201,6 +222,13 @@ while True:
     for event in pygame.event.get():
         if event.type == QUIT:
             terminate()
+        if event.type == KEYDOWN:
+            if event.key == K_UP:
+                selected_mode -= 1
+                selected_mode = max(0, selected_mode)
+            if event.key == K_DOWN:
+                selected_mode += 1
+                selected_mode = min(10, selected_mode)
         if event.type == MOUSEBUTTONDOWN and event.button == 1:
             for track in track_list:
                 for sound_square in track:
@@ -225,7 +253,7 @@ while True:
         for sound_square in track:
             sound_square.render()
 
-    render_text()
+    render_text(selected_mode, selected_sample1, selected_sample2)
     collide(time_bar, track_list)
 
     window_surface.blit(time_bar_image, time_bar)
