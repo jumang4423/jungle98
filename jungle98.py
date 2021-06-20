@@ -92,7 +92,7 @@ class SoundSquare:
         from pydub import AudioSegment
         _sound = AudioSegment.from_file(audio_file, "wav")
         _hoge = AudioSegment(
-                    _data=_sound._data,
+                    data=_sound._data,
                     sample_width=1, 
                     frame_rate=44100, 
                     channels=1,
@@ -102,7 +102,7 @@ class SoundSquare:
 
         _sound = AudioSegment.from_file(audio_file, "wav")
         _hoge = AudioSegment(
-                    _data=_sound._data,
+                    data=_sound._data,
                     sample_width=1, 
                     frame_rate=44100, 
                     channels=1,
