@@ -89,6 +89,9 @@ class SoundSquare:
         self._state = False
         self.rect = pygame.Rect(x_pos, y_pos, self.sizex, self.sizey)
         self.sound = pygame.mixer.Sound(audio_file)
+
+        from pydub import AudioSegment
+        
         self.sound.set_volume(1)
 
     def get_state(self):
