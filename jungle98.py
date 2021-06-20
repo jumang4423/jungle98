@@ -93,7 +93,7 @@ class SoundSquare:
         _sound = AudioSegment.from_file(audio_file, "wav")
         _hoge = AudioSegment(
                     data=_sound._data,
-                    sample_width=4, 
+                    sample_width=1, 
                     frame_rate=44100, 
                     channels=2,
         )
@@ -103,7 +103,7 @@ class SoundSquare:
         _sound = AudioSegment.from_file(audio_file, "wav")
         _hoge = AudioSegment(
                     data=_sound._data,
-                    sample_width=4, 
+                    sample_width=1, 
                     frame_rate=44100, 
                     channels=2,
         )
