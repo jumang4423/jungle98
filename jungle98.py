@@ -78,8 +78,6 @@ class SoundSquare:
         self.off = pygame.image.load("images/off.png").convert_alpha()
         self.on = pygame.image.load("images/on.png").convert_alpha()
         self._state = False
-        self.x_pos = x_pos
-        self.y_pos = y_pos
         self.rect = pygame.Rect(x_pos, y_pos, self.sizex, self.sizey)
         self.sound = pygame.mixer.Sound(audio_file)
         self.sound.set_volume(0.6)
@@ -96,10 +94,6 @@ class SoundSquare:
             window_surface.blit(self.off, self.rect)
         else:
             window_surface.blit(self.on, self.rect)
-    
-    def scale(self):
-        self.rect = pygame.Rect(self.x_pos, self.y_pos, self.sizex + self.shock, self.sizey + self.shock)
-
 
 def change_state(sound_square):
     mouse_pos = pygame.mouse.get_pos()
@@ -165,7 +159,6 @@ def collide(time_bar, track_list):
             ):
                 if sound_square._state == True:
                     sound_square.sound.play()
-                    sound_square.shock = 5
 
 
 # set up sound squares
@@ -230,9 +223,6 @@ while True:
     window_surface.fill(black_color)
     for track in track_list:
         for sound_square in track:
-            if sound_square.shock > 0:
-                sound_square.shock -= 1
-                sound_square.scale()
             sound_square.render()
 
     render_text()
