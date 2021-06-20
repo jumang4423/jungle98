@@ -114,7 +114,7 @@ def change_state(sound_square):
 
 
 # Text rendering
-def render_text(selected_mode, selected_sample1, selected_sample2):
+def render_text(selected_mode, selected_sample1, selected_sample2, mod_list, mod_select):
     x = (blockSizex) / 2
     y = (blockSizey) / 2
 
@@ -123,9 +123,9 @@ def render_text(selected_mode, selected_sample1, selected_sample2):
 
     # mod
     if selected_mode == 0:
-        render_text = font.render("*(mod:     activated)", True, white_color)
+        render_text = font.render("*(mod:     " + mod_list[mod_select] +")", True, white_color)
     else:
-        render_text = font.render("mod:     activated", True, white_color)
+        render_text = font.render("mod:     " + mod_list[mod_select] +"", True, white_color)
     render_text_rect = render_text.get_rect(topleft=(x, y))
     window_surface.blit(render_text, render_text_rect)
     y += float(window_size["height"]) / float(len(break_list) + 6)
@@ -211,10 +211,15 @@ for j in range(len(sample2_list)):
 time_bar.right = blockSizex
 time_bar.top = blockSizey * 3
 
+mod_select = 0
+mod_list = ["deactivated", "break select", "isReverse"]
+
 where_half = 0  # 0 -> 8 -> 16
 
 selected_mode = 0 # x
 selected_seq = 0 # y
+
+seq_tempo = 0
 
 # play only sample
 if selected_sample1 != -1:
@@ -233,15 +238,46 @@ while True:
             if event.key == K_UP:
                 selected_mode -= 1
                 selected_mode = max(0, selected_mode)
+                # temporary
+                if selected_mode == 0:
+                    seq_tempo = selected_seq
+                    selected_seq = mod_select
+                if selected_mode == 8:
+                    selected_sample1 = selected_seq -1
+                    selected_seq = seq_tempo
             if event.key == K_DOWN:
                 selected_mode += 1
                 selected_mode = min(10, selected_mode)
+                # temporary
+                if selected_mode == 9:
+                    seq_tempo = selected_seq
+                    selected_seq = selected_sample1 + 1
+                if selected_mode == 10:
+                    selected_seq = selected_sample2 + 1
+                if selected_mode == 0:
+                    mod_select = selected_seq
+                    selected_seq = seq_tempo
             if event.key == K_LEFT:
                 selected_seq -= 1
                 selected_seq = max(0, selected_seq)
+                if selected_mode == 0:
+                    mod_select = selected_seq
+                if selected_mode == 9:
+                    selected_sample1 = selected_seq -1
+                if selected_mode == 10:
+                    selected_sample1 = selected_seq -2
             if event.key == K_RIGHT:
                 selected_seq += 1
                 selected_seq = min(sequence_number, selected_seq)
+                if selected_mode == 0:
+                    mod_select = selected_seq
+                    selected_seq = min(len(mod_list), selected_seq)
+                if selected_mode == 9:
+                    selected_sample1 = selected_seq -1
+                    selected_seq = min(len(sample1_data), selected_seq)
+                if selected_mode == 10:
+                    selected_sample2 = selected_seq -1
+                    selected_seq = min(len(sample2_data), selected_seq)
         if event.type == MOUSEBUTTONDOWN and event.button == 1:
             for track in track_list:
                 for sound_square in track:
@@ -269,7 +305,7 @@ while True:
             else:
                 sound_square.render(False)
 
-    render_text(selected_mode, selected_sample1, selected_sample2)
+    render_text(selected_mode, selected_sample1, selected_sample2, mod_list, mod_select)
     collide(time_bar, track_list)
 
     window_surface.blit(time_bar_image, time_bar)
