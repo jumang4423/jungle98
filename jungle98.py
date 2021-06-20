@@ -98,7 +98,7 @@ class SoundSquare:
                     channels=1,
         )
         _hoge = _hoge.reverse()
-        self.twin_sound = pygame.mixer.Sound(_hoge._data)
+        self.reverse_sound = pygame.mixer.Sound(_hoge._data)
 
         _sound = AudioSegment.from_file(audio_file, "wav")
         _hoge = AudioSegment(
