@@ -19,7 +19,7 @@ project_name = "solar_glide"
 tempo = 149
 # objects 2
 system_fps = 60.0
-s_tempo = 4  # float(blockSizex * tempo) / float(60.0 * system_fps)
+s_tempo = 4 * (16 / sequence_number)  # float(blockSizex * tempo) / float(60.0 * system_fps)
 # mixer inits
 pygame.mixer.pre_init(
     audioSettings["frequency"],
@@ -81,11 +81,12 @@ class SoundSquare:
         self.sizey = blockSizey
         self.off = pygame.image.load("images/off.png").convert_alpha()
         self.on = pygame.image.load("images/on.png").convert_alpha()
+        self.off_selected = pygame.image.load("images/off_selected.png").convert_alpha()
+        self.on_selected = pygame.image.load("images/on_selected.png").convert_alpha()
         self._state = False
         self.rect = pygame.Rect(x_pos, y_pos, self.sizex, self.sizey)
         self.sound = pygame.mixer.Sound(audio_file)
         self.sound.set_volume(0.6)
-        self.shock = 0
 
     def get_state(self):
         return self._state
@@ -93,11 +94,17 @@ class SoundSquare:
     def toggle_state(self):
         self._state = not self._state
 
-    def render(self):
+    def render(self, isSelected):
         if self._state is False:
-            window_surface.blit(self.off, self.rect)
+            if isSelected:
+                window_surface.blit(self.off_selected, self.rect)
+            else:
+                window_surface.blit(self.off, self.rect)
         else:
-            window_surface.blit(self.on, self.rect)
+            if isSelected:
+                window_surface.blit(self.on_selected, self.rect)
+            else:
+                window_surface.blit(self.on, self.rect)
 
 
 def change_state(sound_square):
@@ -206,8 +213,8 @@ time_bar.top = blockSizey * 3
 
 where_half = 0  # 0 -> 8 -> 16
 
-selected_mode = 0
-selected_seq = 0
+selected_mode = 0 # x
+selected_seq = 0 # y
 
 # play only sample
 if selected_sample1 != -1:
@@ -229,6 +236,12 @@ while True:
             if event.key == K_DOWN:
                 selected_mode += 1
                 selected_mode = min(10, selected_mode)
+            if event.key == K_RIGHT:
+                selected_seq -= 1
+                selected_seq = max(0, selected_seq)
+            if event.key == K_LEFT:
+                selected_seq += 1
+                selected_seq = min(sequence_number, selected_seq)
         if event.type == MOUSEBUTTONDOWN and event.button == 1:
             for track in track_list:
                 for sound_square in track:
@@ -249,9 +262,12 @@ while True:
     else:
         time_bar.move_ip(float(s_tempo), 0)
     window_surface.fill(black_color)
-    for track in track_list:
-        for sound_square in track:
-            sound_square.render()
+    for i, track in enumerate(track_list):
+        for j, sound_square in enumerate(track):
+            if i == selected_mode + 1 and j == selected_seq:
+                sound_square.render(True)
+            else:
+                sound_square.render(False)
 
     render_text(selected_mode, selected_sample1, selected_sample2)
     collide(time_bar, track_list)
