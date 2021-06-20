@@ -95,7 +95,7 @@ class SoundSquare:
                     data=_sound._data,
                     sample_width=4, 
                     frame_rate=44100, 
-                    channels=1,
+                    channels=2,
         )
         _hoge = _hoge.reverse()
         self.reverse_sound = pygame.mixer.Sound(_hoge._data)
@@ -105,7 +105,7 @@ class SoundSquare:
                     data=_sound._data,
                     sample_width=4, 
                     frame_rate=44100, 
-                    channels=1,
+                    channels=2,
         )
         _hoge = _hoge + _hoge
         self.twin_sound = pygame.mixer.Sound(_hoge._data)
