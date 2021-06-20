@@ -88,7 +88,7 @@ class SoundSquare:
         self._state = False
         self.rect = pygame.Rect(x_pos, y_pos, self.sizex, self.sizey)
         self.sound = pygame.mixer.Sound(audio_file)
-        self.sound.set_volume(0.6)
+        self.sound.set_volume(0.8)
 
     def get_state(self):
         return self._state
@@ -285,7 +285,7 @@ while True:
                     selected_seq = min(len(sample2_data) -1, selected_seq)
                     selected_sample2 = selected_seq
                 else:
-                    selected_seq = min(sequence_number, selected_seq)
+                    selected_seq = min(sequence_number -1, selected_seq)
 
             if event.key == K_SPACE:
                 if selected_mode != 0 and selected_mode != 9 and selected_mode != 10:
