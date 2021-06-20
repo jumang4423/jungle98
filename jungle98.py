@@ -254,7 +254,6 @@ while True:
                     seq_tempo = selected_seq
                     selected_seq = mod_select
                 if selected_mode == 8:
-                    selected_sample1 = selected_seq
                     selected_seq = seq_tempo
             if event.key == K_DOWN:
                 selected_mode += 1
