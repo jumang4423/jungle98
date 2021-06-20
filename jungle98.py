@@ -90,7 +90,7 @@ class SoundSquare:
         self.rect = pygame.Rect(x_pos, y_pos, self.sizex, self.sizey)
         self.sound = pygame.mixer.Sound(audio_file)
         from pydub import AudioSegment
-        _hoge = AudioSegment.from_file(audio_file, "wav").resample(sample_rate_Hz=44100, sample_width=2, channels=1)
+        _hoge = AudioSegment.from_file(audio_file, "wav")
         _hoge = _hoge.reverse()
         self.reverse_sound = pygame.mixer.Sound(_hoge._data)
         self.sound.set_volume(1)
