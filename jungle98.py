@@ -54,6 +54,7 @@ with open(_jsonPath, encoding="utf-8", mode="r") as f:
     d = json.load(f)
 # load sounds
 break_list = []
+
 for json in d:
     break_list.append("./projects/" + project_name + "/breaks/" + json["data"])
 
@@ -306,7 +307,7 @@ while True:
                 sample2_data[selected_sample2].play()
 
     if main_clock.get_fps() > 30:
-        time_bar.move_ip(float(s_tempo) * (float(main_clock.get_fps()) / system_fps), 0)
+        time_bar.move_ip(float(s_tempo) * ( system_fps / float(main_clock.get_fps())), 0)
     else:
         time_bar.move_ip(float(s_tempo), 0)
 
