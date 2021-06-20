@@ -147,26 +147,19 @@ def render_text(
         window_surface.blit(render_text, render_text_rect)
         y += float(window_size["height"]) / float(len(break_list) + 6)
     # s1
-
-    _sampleName = "deactivated"
-    if selected_sample1 != -1:
-        _sampleName = sample1_json[selected_sample1]
     if selected_mode == 9:
-        render_text = font.render("*(sam1:     " + _sampleName + ")", True, white_color)
+        render_text = font.render("*(sam1:     " +  sample2_json[selected_sample2] + ")", True, white_color)
     else:
-        render_text = font.render("sam1:     " + _sampleName, True, white_color)
+        render_text = font.render("sam1:     " +  sample2_json[selected_sample2], True, white_color)
     render_text_rect = render_text.get_rect(topleft=(x, y))
     window_surface.blit(render_text, render_text_rect)
     y += float(window_size["height"]) / float(len(break_list) + 6)
 
     # s2
-    _sampleName = "deactivated"
-    if selected_sample2 != -1:
-        _sampleName = sample2_json[selected_sample2]
     if selected_mode == 10:
-        render_text = font.render("*(sam2:     " + _sampleName + ")", True, white_color)
+        render_text = font.render("*(sam2:     " +  sample2_json[selected_sample2] + ")", True, white_color)
     else:
-        render_text = font.render("sam2:     " + _sampleName, True, white_color)
+        render_text = font.render("sam2:     " +  sample2_json[selected_sample2], True, white_color)
     render_text_rect = render_text.get_rect(topleft=(x, y))
     window_surface.blit(render_text, render_text_rect)
 
@@ -303,9 +296,9 @@ while True:
         where_half += 8
 
         if where_half & 8 == 0:
-            if selected_sample1 != -1:
+            if selected_sample1 != 0:
                 sample1_data[selected_sample1].play()
-            if selected_sample2 != -1:
+            if selected_sample2 != 0:
                 sample2_data[selected_sample2].play()
 
     if main_clock.get_fps() > 30:
