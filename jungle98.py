@@ -89,9 +89,10 @@ class SoundSquare:
         self._state = False
         self.rect = pygame.Rect(x_pos, y_pos, self.sizex, self.sizey)
         self.sound = pygame.mixer.Sound(audio_file)
-
         from pydub import AudioSegment
-        
+        _hoge = AudioSegment.from_file(audio_file, "wav")
+        _hoge = _hoge.reverse()
+        self.reverse_sound = pygame.mixer.Sound(_hoge._data)
         self.sound.set_volume(1)
 
     def get_state(self):
@@ -181,7 +182,7 @@ def wait_for_player_to_press_key():
 
 
 # Check for collision between time bar and 'on' sound square
-def collide(time_bar, track_list):
+def collide(time_bar, track_list, mod_select):
     for track in track_list:
         for sound_square in track:
             if (
@@ -189,7 +190,11 @@ def collide(time_bar, track_list):
                 and time_bar.right < sound_square.rect.left + s_tempo / 2
             ):
                 if sound_square._state == True:
-                    sound_square.sound.play()
+                    if mod_select == 2:
+                        sound_square.reverse_sound.play()
+                    else:
+                        sound_square.sound.play()
+                    
 
 
 # set up sound squares
@@ -325,7 +330,7 @@ while True:
 
     render_text(selected_mode, selected_sample1, selected_sample2, mod_list, mod_select)
     if mod_select != 0:
-        collide(time_bar, track_list)
+        collide(time_bar, track_list, mod_select)
 
     window_surface.blit(time_bar_image, time_bar)
     window_surface.blit(bak_image, bak_bar)
