@@ -65,10 +65,10 @@ with open(_jsonPath, encoding="utf-8", mode="r") as f:
 
     d = json.load(f)
 # load sounds
-sample1_list = ["deactivated"]
-sample1_json = ["deactivated"]
-sample2_list = ["deactivated"]
-sample2_json = ["deactivated"]
+sample1_list = [" * "]
+sample1_json = [" * "]
+sample2_list = [" * "]
+sample2_json = [" * "]
 for json in d:
     if json["sample1"] == True:
         sample1_list.append("./projects/" + project_name + "/ambient/" + json["data"])
@@ -93,7 +93,9 @@ class SoundSquare:
         _hoge = AudioSegment.from_file(audio_file, "wav")
         _hoge = _hoge.reverse()
         self.reverse_sound = pygame.mixer.Sound(_hoge._data)
-        self.sound.set_volume(1)
+        _hoge = AudioSegment.from_file(audio_file, "wav")
+        _hoge = _hoge + _hoge
+        self.twin_sound = pygame.mixer.Sound(_hoge._data)
 
     def get_state(self):
         return self._state
@@ -192,6 +194,8 @@ def collide(time_bar, track_list, mod_select):
                 if sound_square._state == True:
                     if mod_select == 2:
                         sound_square.reverse_sound.play()
+                    elif mod_select == 3:
+                        sound_square.twin_sound.play()
                     else:
                         sound_square.sound.play()
                     
@@ -213,11 +217,11 @@ selected_sample2 = 0
 sample1_data = []
 sample2_data = []
 for j in range(len(sample1_list)):
-    if sample1_list[j] != 'deactivated':
+    if sample1_list[j] != ' * ':
         sound_square = pygame.mixer.Sound(sample1_list[j])
     sample1_data.append(sound_square)
 for j in range(len(sample2_list)):
-    if sample2_list[j] != 'deactivated':
+    if sample2_list[j] != ' * ':
         sound_square = pygame.mixer.Sound(sample2_list[j])
     sample2_data.append(sound_square)
 
@@ -225,7 +229,7 @@ time_bar.right = blockSizex
 time_bar.top = blockSizey * 3
 
 mod_select = 1
-mod_list = ["deactivated", "break select", "isReverse"]
+mod_list = [" * ", "break select", "reverse", "twins"]
 
 where_half = 0  # 0 -> 8 -> 16
 
