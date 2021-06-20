@@ -282,7 +282,7 @@ while True:
             if event.key == K_RIGHT:
                 selected_seq += 1
                 if selected_mode == 0:
-                    selected_seq = min(len(mod_list), selected_seq)
+                    selected_seq = min(len(mod_list) -1, selected_seq)
                     mod_select = selected_seq
                 elif selected_mode == 9:
                     selected_seq = min(len(sample1_data) -1, selected_seq)
