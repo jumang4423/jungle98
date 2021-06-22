@@ -1,9 +1,12 @@
-#! python3
 # jungle98.py
 
+# pygame
 import pygame
 import sys
 from pygame.locals import *
+
+# sound processing
+from pydub import AudioSegment
 
 # objects
 sequence_number = 16
@@ -89,11 +92,12 @@ class SoundSquare:
         self._state = False
         self.rect = pygame.Rect(x_pos, y_pos, self.sizex, self.sizey)
         self.sound = pygame.mixer.Sound(audio_file)
-        from pydub import AudioSegment
-
+        # TODO: somwhow pydub outputs hi-pitched buffer
+        # prepre the reversed sound
         _hoge = AudioSegment.from_file(audio_file, "wav")
         _hoge = _hoge.reverse()
         self.reverse_sound = pygame.mixer.Sound(_hoge._data)
+        # prepre the twin sound
         _hoge = AudioSegment.from_file(audio_file, "wav")
         _hoge = _hoge + _hoge
         self.twin_sound = pygame.mixer.Sound(_hoge._data)
@@ -126,6 +130,7 @@ def change_state(sound_square):
 
 
 # Text rendering
+# TODO: ugly refactor NOW
 def render_text(
     selected_mode, selected_sample1, selected_sample2, mod_list, mod_select
 ):
@@ -252,6 +257,7 @@ while True:
     dt = main_clock.tick(float(system_fps))
     # on_list = []
 
+    # stupid keyboard input
     for event in pygame.event.get():
         if event.type == QUIT:
             terminate()
