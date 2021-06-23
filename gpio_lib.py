@@ -1,6 +1,6 @@
 import spidev
 
-spi = spidex.SpiDev()
+spi = spidev.SpiDev()
 spi.open(0,0)
 
 def readadc(adcnum):
