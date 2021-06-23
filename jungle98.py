@@ -69,7 +69,6 @@ currentPic = pygame.transform.scale(
 ).convert()
 
 # file existance validation stuff
-
 isFileExist = all((os.path.exists("./cache/" + str(i + 1) + ".png")) for i in range(8))
 
 while ranges != 9:
