@@ -12,6 +12,7 @@ a sequencer which a school project(CN) written in python3
 - pydub
 - gpio
 - spidev
+- fswebcam
 
 ## functions
 
