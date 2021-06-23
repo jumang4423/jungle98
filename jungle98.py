@@ -56,8 +56,6 @@ while project_name == "":
     dt = main_clock.tick(float(system_fps))
     # stupid keyboard input
     for event in pygame.event.get():
-        if event.key == K_SPACE:
-            project_name = project_list[selected_project]
         if event.type == KEYDOWN:
             if event.key == K_UP:
                 selected_project -= 1
@@ -65,6 +63,8 @@ while project_name == "":
             if event.key == K_DOWN:
                 selected_project += 1
                 selected_project = min(len(project_list) - 1, selected_project)
+            if event.key == K_SPACE:
+                project_name = project_list[selected_project]
 
     window_surface.fill(black_color)
     # select font
