@@ -2,7 +2,7 @@
 
 a sequencer which a school project(CN) written in python3
 
-***⚠️caution⚠️: jungle98 code is REALLY DIRTYthat, DO NOT REFERENCE THIS CODE INTO YOUR CODE***
+***⚠️caution⚠️: jungle98 code is REALLY DIRTY, that DO NOT REFERENCE THIS CODE INTO YOUR CODE***
 
 ![main screen](_img/jungle98.png)
 
