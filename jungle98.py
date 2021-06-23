@@ -79,7 +79,7 @@ while project_name == "":
     render_text = font.render(
             "select one project (space to go):", True, white_color
         )
-    render_text_rect = render_text.get_rect(center=(window_size["width"] / 2, float(window_size["height"]) / float(len(project_list) + 2)))
+    render_text_rect = render_text.get_rect(center=(window_size["width"] / 2, float(window_size["height"]) / float(len(project_list) + 3)))
     window_surface.blit(render_text, render_text_rect)
 
     for i, v in enumerate(project_list):
@@ -92,7 +92,7 @@ while project_name == "":
             render_text = font.render(
             v, True, white_color
             )
-        render_text_rect = render_text.get_rect(center=(window_size["width"] / 2, float(window_size["height"]) / float(len(project_list) + 2) * (i + 3)))
+        render_text_rect = render_text.get_rect(center=(window_size["width"] / 2, float(window_size["height"]) / float(len(project_list) + 3) * (i + 3)))
         window_surface.blit(render_text, render_text_rect)
     pygame.display.update()
 
