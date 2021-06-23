@@ -24,7 +24,7 @@ input_channel = 0
 project_name = "solar_glide"
 tempo = 149
 # objects 2
-system_fps = 1
+system_fps = 60.0
 s_tempo = 4 * (
     16 / sequence_number
 )  # float(blockSizex * tempo) / float(60.0 * system_fps)
