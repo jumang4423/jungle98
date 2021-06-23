@@ -120,7 +120,6 @@ while ranges != 9:
     window_surface.blit(currentPic, (window_size["width"], 0))
     pygame.display.update()
 
-# TODO: music project selection windows goes here
 project_list = os.listdir("./projects")
 selected_project = 0
 
@@ -145,7 +144,7 @@ while project_name == "":
     render_text = font.render("select one project (space to go):", True, white_color)
     render_text_rect = render_text.get_rect(
         center=(
-            window_size["width"] / 2,
+            (window_size["width"] + picture_margin) / 2,
             float(window_size["height"]) / float(len(project_list) + 3),
         )
     )
