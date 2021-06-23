@@ -24,7 +24,7 @@ blockSizey = blockSizex
 title = "jungle98"
 audioSettings = {"frequency": 44100, "size": -16, "channels": 2, "buffer": 2048}
 window_size = {"width": blockSizex * (sequence_number + 1), "height": blockSizey * 14}
-picture_margin = blockSizex * 4
+picture_margin = blockSizex * 5
 input_channel = 0
 # sounds sequences
 project_name = ""
