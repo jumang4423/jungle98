@@ -60,28 +60,28 @@ font = pygame.font.SysFont(None, 25)
 
 # take photo
 CAM_DIR  = "./cache/"
-range = 1
+ranges = 1
 currentPic = pygame.transform.scale(pygame.image.load("cache/fake.png"), (picture_margin, window_size["height"]))
-while range != 9:
+while ranges != 9:
     dt = main_clock.tick(float(system_fps))
     for event in pygame.event.get():
         if event.type == QUIT:
             terminate()
         if event.type == KEYDOWN:
             if event.key == K_SPACE:
-                save_dir_filename = CAM_DIR + str(range) +".png"
+                save_dir_filename = CAM_DIR + str(ranges) +".png"
                 subprocess.call(["fswebcam", "-d", "/dev/video0", save_dir_filename, "--resolution", "640x480"])
                 _take_sound = AudioSegment.from_wav("./sounds/take.wav")
                 play(_take_sound)
-                currentPic = pygame.transform.scale(pygame.image.load("cache/" + str(range) + ".png"), (picture_margin, window_size["height"]))
-                range += 1
+                currentPic = pygame.transform.scale(pygame.image.load("cache/" + str(ranges) + ".png"), (picture_margin, window_size["height"]))
+                ranges += 1
             if event.key == K_RETURN:
-                range = 9
+                ranges = 9
     # LOADING
     window_surface.fill(black_color)
     # select font
     render_text = font.render(
-        "SPACE TO TAKE" + str(range) +" / 8 PHOTOS OR ENTER TO SKIP:", True, white_color
+        "SPACE TO TAKE" + str(ranges) +" / 8 PHOTOS OR ENTER TO SKIP:", True, white_color
     )
     render_text_rect = render_text.get_rect(center=(window_size["width"] / 2, float(window_size["height"]) / 2))
     window_surface.blit(render_text, render_text_rect)
@@ -304,9 +304,6 @@ def collide(time_bar, track_list, mod_select):
 
 
 # set up sound squares
-
-print(break_list)
-
 track_list = []
 for j in range(len(break_list)):
     track_list.append([])
