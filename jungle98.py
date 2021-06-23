@@ -64,7 +64,7 @@ while range != 9:
     for event in pygame.event.get():
         if event.type == KEYDOWN:
             if event.key == K_SPACE:
-                save_dir_filename = CAM_DIR + range +".png"
+                save_dir_filename = CAM_DIR + str(range) +".png"
                 subprocess.call(["fswebcam–d", "/dev/video0", save_dir_filename])
                 range += 1
     # LOADING
