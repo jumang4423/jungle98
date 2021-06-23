@@ -1,47 +1,47 @@
 [
     {
         "id" : 1,
-        "data" : "sample1-149-2.wav",
+        "data" : "intro.wav",
         "sample1": true
     },
     {
         "id" : 2,
-        "data" : "sample1-149-1.wav",
+        "data" : "drop.wav",
         "sample1": true
     },
     {
         "id" : 3,
-        "data" : "sample1-149-3.wav",
+        "data" : "break.wav",
         "sample1": true
     },
     {
         "id" : 4,
-        "data" : "sample1-149-4.wav",
+        "data" : "end.wav",
         "sample1": true
     },
     {
         "id" : 1,
-        "data" : "sample2-149-1.wav",
+        "data" : "IsAcid.wav",
         "sample1": false
     },
     {
         "id" : 2,
-        "data" : "sample2-149-2.wav",
+        "data" : "jersey.wav",
         "sample1": false
     },
     {
         "id" : 3,
-        "data" : "sample2-149-3.wav",
+        "data" : "ring.wav",
         "sample1": false
     },
     {
         "id" : 9,
-        "data" : "sample2-149-9.wav",
+        "data" : "drumnbase.wav",
         "sample1": false
     },
     {
         "id" : 10,
-        "data" : "sample2-149-10.wav",
+        "data" : "DJHashimotoKannna.wav",
         "sample1": false
     }
 ]

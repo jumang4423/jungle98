@@ -3,6 +3,7 @@
 # pygame
 import pygame
 import sys
+import os
 from pygame.locals import *
 
 # import self lib
@@ -21,7 +22,7 @@ audioSettings = {"frequency": 44100, "size": -16, "channels": 2, "buffer": 2048}
 window_size = {"width": blockSizex * (sequence_number + 1), "height": blockSizey * 14}
 input_channel = 0
 # sounds sequences
-project_name = "solar_glide"
+project_name = ""
 tempo = 149
 # objects 2
 system_fps = 60.0
@@ -47,9 +48,19 @@ pygame.display.set_caption(title)
 font = pygame.font.SysFont(None, 20)
 
 # TODO: music project selection windows goes here
+project_list = os.listdir("./projects")
 
+selected_project = 0
 
+while project_name == "":
+    dt = main_clock.tick(float(system_fps))
+    # stupid keyboard input
+    for event in pygame.event.get():
+        if event.key == K_SPACE:
+            project_name = project_list[selected_project]
 
+    window_surface.fill(black_color)
+    pygame.display.update()
 
 
 
@@ -269,10 +280,10 @@ if selected_sample2 != 0:
 while True:
     dt = main_clock.tick(float(system_fps))
 
-    # GPIO TEST
+    # # GPIO TEST
 
-    inputVal0 = gpio_lib.readadc(input_channel)
-    print(inputVal0)
+    # inputVal0 = gpio_lib.readadc(input_channel)
+    # print(inputVal0)
 
     # stupid keyboard input
     for event in pygame.event.get():
