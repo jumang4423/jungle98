@@ -14,6 +14,7 @@ import subprocess
 
 # sound processing
 from pydub import AudioSegment
+from pydub.playback import play
 
 # objects
 sequence_number = 16
@@ -60,22 +61,31 @@ font = pygame.font.SysFont(None, 25)
 # take photo
 CAM_DIR  = "./cache/"
 range = 1
+currentPic = pygame.image.load(None)
 while range != 9:
     dt = main_clock.tick(float(system_fps))
     for event in pygame.event.get():
+        if event.type == QUIT:
+            terminate()
         if event.type == KEYDOWN:
             if event.key == K_SPACE:
                 save_dir_filename = CAM_DIR + str(range) +".png"
                 subprocess.call(["fswebcam", "-d", "/dev/video0", save_dir_filename, "--resolution", "640x480"])
+                _take_sound = AudioSegment.from_wav("sounds/take.wav")
+                play(_take_sound)
+                currentPic = pygame.transform.scale(pygame.image.load("cache/" + str(range) + ".png"), (picture_margin, window_size["height"]))
                 range += 1
     # LOADING
     window_surface.fill(black_color)
     # select font
     render_text = font.render(
-        "TAKE " + str(range) +" / 8 PHOTO, SPACE TO CONTINUE...", True, white_color
+        str(range) +" / 8 PHOTOS, PRESS SPACE:", True, white_color
     )
     render_text_rect = render_text.get_rect(center=(window_size["width"] / 2, float(window_size["height"]) / 2))
     window_surface.blit(render_text, render_text_rect)
+
+    window_surface.blit(currentPic, (window_size["width"],0))
+
     pygame.display.update()
 
 # TODO: music project selection windows goes here
