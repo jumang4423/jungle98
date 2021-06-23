@@ -51,7 +51,7 @@ main_clock = pygame.time.Clock()
 window_surface = pygame.display.set_mode((window_size["width"], window_size["height"]))
 pygame.display.set_caption(title)
 # font settings
-font = pygame.font.SysFont(None, 20)
+font = pygame.font.SysFont(None, 25)
 
 # TODO: music project selection windows goes here
 project_list = os.listdir("./projects")
