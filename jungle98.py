@@ -75,11 +75,13 @@ while range != 9:
                 play(_take_sound)
                 currentPic = pygame.transform.scale(pygame.image.load("cache/" + str(range) + ".png"), (picture_margin, window_size["height"]))
                 range += 1
+            if event.key == K_RETURN:
+                range = 9
     # LOADING
     window_surface.fill(black_color)
     # select font
     render_text = font.render(
-        str(range) +" / 8 PHOTOS, PRESS SPACE:", True, white_color
+        "SPACE TO TAKE" + str(range) +" / 8 PHOTOS OR ENTER TO SKIP:", True, white_color
     )
     render_text_rect = render_text.get_rect(center=(window_size["width"] / 2, float(window_size["height"]) / 2))
     window_surface.blit(render_text, render_text_rect)
