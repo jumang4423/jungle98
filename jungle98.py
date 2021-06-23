@@ -209,12 +209,11 @@ image_list = []
 current_image = 0
 
 for i in range(8):
-    image_list = image_list.append(
-        pygame.transform.scale(
+    _image = pygame.transform.scale(
             pygame.image.load("cache/" + str(i + 1) + ".png"),
             (picture_margin, window_size["height"]),
         )
-    )
+    image_list = image_list.append(_image)
 
 
 class SoundSquare:
