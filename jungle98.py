@@ -67,6 +67,11 @@ ranges = 1
 currentPic = pygame.transform.scale(
     pygame.image.load("cache/fake.png"), (picture_margin, window_size["height"])
 ).convert()
+
+# file existance validation stuff
+
+isFileExist = all((os.path.exists("./cache/" + str(i + 1) + ".png")) for i in range(8))
+
 while ranges != 9:
     dt = main_clock.tick(float(system_fps))
     for event in pygame.event.get():
@@ -92,16 +97,23 @@ while ranges != 9:
                     (picture_margin, window_size["height"]),
                 ).convert()
                 ranges += 1
-            if event.key == K_SPACE:
+            if isFileExist and event.key == K_SPACE:
                 ranges = 9
     # LOADING
     window_surface.fill(black_color)
     # select font
-    render_text = font.render(
-        "ENTER TO TAKE" + str(ranges) + " / 8 PHOTOS OR SPACE TO SKIP:",
-        True,
-        white_color,
-    )
+    if isFileExist:
+        render_text = font.render(
+            "ENTER TO TAKE" + str(ranges) + " / 8 PHOTOS OR SPACE TO SKIP:",
+            True,
+            white_color,
+        )
+    else:
+        render_text = font.render(
+            "ENTER TO TAKE" + str(ranges) + " / 8 PHOTOS:",
+            True,
+            white_color,
+        )
     render_text_rect = render_text.get_rect(
         center=(window_size["width"] / 2, float(window_size["height"]) / 2)
     )
@@ -209,9 +221,9 @@ image_list = []
 
 for i in range(8):
     _image = pygame.transform.scale(
-            pygame.image.load("cache/" + str(i + 1) + ".png"),
-            (picture_margin, window_size["height"]),
-        ).convert()
+        pygame.image.load("cache/" + str(i + 1) + ".png"),
+        (picture_margin, window_size["height"]),
+    ).convert()
     image_list.append(_image)
 
 
@@ -320,6 +332,7 @@ def render_text(
         )
     render_text_rect = render_text.get_rect(topleft=(x, y))
     window_surface.blit(render_text, render_text_rect)
+
 
 # set up sound squares
 track_list = []
@@ -475,7 +488,7 @@ while True:
                         else:
                             sound_square.sound.play()
                         current_image = sound_square.number
-                    
+
     window_surface.blit(time_bar_image, time_bar)
     window_surface.blit(bak_image, bak_bar)
 
