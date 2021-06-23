@@ -9,6 +9,9 @@ from pygame.locals import *
 # import self lib
 import gpio_lib
 
+# import selfie lib
+import picamera
+
 # sound processing
 from pydub import AudioSegment
 
@@ -53,9 +56,30 @@ pygame.display.set_caption(title)
 # font settings
 font = pygame.font.SysFont(None, 25)
 
+# take photo
+CAM_DIR  = "./cache/"
+camera = picamera.PiCamera()
+range = 1
+while range == 9:
+    dt = main_clock.tick(float(system_fps))
+    for event in pygame.event.get():
+        if event.type == KEYDOWN:
+            if event.key == K_SPACE:
+                save_dir_filename = CAM_DIR + range +".png"
+                camera.capture(save_dir_filename)
+                range += 1
+    # LOADING
+    window_surface.fill(black_color)
+    # select font
+    render_text = font.render(
+        "TAKE " + range +" / 8 PHOTO, SPACE TO CONTINUE...", True, white_color
+    )
+    render_text_rect = render_text.get_rect(center=(window_size["width"] / 2, float(window_size["height"]) / 2))
+    window_surface.blit(render_text, render_text_rect)
+    pygame.display.update()
+
 # TODO: music project selection windows goes here
 project_list = os.listdir("./projects")
-
 selected_project = 0
 
 while project_name == "":
