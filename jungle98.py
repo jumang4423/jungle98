@@ -61,7 +61,7 @@ font = pygame.font.SysFont(None, 25)
 # take photo
 CAM_DIR  = "./cache/"
 range = 1
-currentPic = pygame.image.load(None)
+currentPic = pygame.transform.scale(pygame.image.load("cache/fake.png"), (picture_margin, window_size["height"]))
 while range != 9:
     dt = main_clock.tick(float(system_fps))
     for event in pygame.event.get():
