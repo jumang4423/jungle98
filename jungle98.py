@@ -479,6 +479,6 @@ while True:
     window_surface.blit(time_bar_image, time_bar)
     window_surface.blit(bak_image, bak_bar)
 
-    # window_surface.blit(image_list[current_image], (window_size["width"], 0))
+    window_surface.blit(image_list[current_image], (window_size["width"], 0))
 
     pygame.display.update()
