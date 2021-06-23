@@ -71,7 +71,7 @@ while range != 9:
             if event.key == K_SPACE:
                 save_dir_filename = CAM_DIR + str(range) +".png"
                 subprocess.call(["fswebcam", "-d", "/dev/video0", save_dir_filename, "--resolution", "640x480"])
-                _take_sound = AudioSegment.from_wav("sounds/take.wav")
+                _take_sound = AudioSegment.from_wav("./sounds/take.wav")
                 play(_take_sound)
                 currentPic = pygame.transform.scale(pygame.image.load("cache/" + str(range) + ".png"), (picture_margin, window_size["height"]))
                 range += 1
@@ -143,10 +143,10 @@ window_surface.blit(render_text, render_text_rect)
 pygame.display.update()
 
 # bar image load
-time_bar_image = pygame.image.load("images/bar.png").convert()
+time_bar_image = pygame.image.load("./images/bar.png").convert()
 time_bar = time_bar_image.get_rect()
 # bak image load
-bak_image = pygame.image.load("images/bak.png").convert()
+bak_image = pygame.image.load("./images/bak.png").convert()
 bak_bar = bak_image.get_rect()
 # drum memories
 _jsonPath = "./projects/" + project_name + "/breaks/meta.json"
@@ -304,6 +304,9 @@ def collide(time_bar, track_list, mod_select):
 
 
 # set up sound squares
+
+print(break_list)
+
 track_list = []
 for j in range(len(break_list)):
     track_list.append([])
