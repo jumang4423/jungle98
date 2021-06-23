@@ -65,7 +65,7 @@ font = pygame.font.SysFont(None, 23)
 CAM_DIR = "./cache/"
 ranges = 1
 currentPic = pygame.transform.scale(
-    pygame.image.load("cache/fake.png"), (picture_margin, window_size["height"])
+    pygame.image.load("cache/fake.png").convert(), (picture_margin, window_size["height"])
 )
 while ranges != 9:
     dt = main_clock.tick(float(system_fps))
@@ -88,7 +88,7 @@ while ranges != 9:
                 _take_sound = AudioSegment.from_wav("./sounds/take.wav")
                 play(_take_sound)
                 currentPic = pygame.transform.scale(
-                    pygame.image.load("cache/" + str(ranges) + ".png"),
+                    pygame.image.load("cache/" + str(ranges) + ".png").convert(),
                     (picture_margin, window_size["height"]),
                 )
                 ranges += 1
@@ -209,7 +209,7 @@ image_list = []
 
 for i in range(8):
     _image = pygame.transform.scale(
-            pygame.image.load("cache/" + str(i + 1) + ".png"),
+            pygame.image.load("cache/" + str(i + 1) + ".png").convert(),
             (picture_margin, window_size["height"]),
         )
     image_list.append(_image)
