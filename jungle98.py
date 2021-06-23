@@ -1,20 +1,22 @@
-# jungle98.py
+#############################################
 
-# pygame
+# pygame lib
 import pygame
 import sys
 import os
 from pygame.locals import *
 
-# import self lib
-import gpio_lib
+# # import self lib
+# import gpio_lib
 
-# import selfie lib
+# import take selfie lib
 import subprocess
 
-# sound processing
+# minimal sound processing
 from pydub import AudioSegment
 from pydub.playback import play
+
+#############################################
 
 # objects
 sequence_number = 16
@@ -35,12 +37,15 @@ s_tempo = 4 * (
     16 / sequence_number
 )  # float(blockSizex * tempo) / float(60.0 * system_fps)
 
+#############################################
+
 # terminate function
 def terminate():
     pygame.quit()
     sys.exit()
 
 
+#############################################
 # mixer inits
 pygame.mixer.pre_init(
     audioSettings["frequency"],
@@ -276,15 +281,11 @@ def change_state(sound_square):
 
 
 # Text rendering
-# TODO: ugly refactor NOW
 def render_text(
     selected_mode, selected_sample1, selected_sample2, mod_list, mod_select
 ):
     x = (blockSizex) / 2
-    y = (blockSizey) / 2
-
-    # main picture
-    y += float(window_size["height"]) * 2 / float(len(break_list) + 6)
+    y = (blockSizey) / 2 + float(window_size["height"]) * 2 / float(len(break_list) + 6)
 
     # mod
     if selected_mode == 0:
