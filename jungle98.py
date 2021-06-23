@@ -40,6 +40,7 @@ def terminate():
     pygame.quit()
     sys.exit()
 
+
 # mixer inits
 pygame.mixer.pre_init(
     audioSettings["frequency"],
@@ -53,15 +54,19 @@ pygame.init()
 black_color = (0, 0, 0)
 white_color = (200, 255, 200)
 main_clock = pygame.time.Clock()
-window_surface = pygame.display.set_mode((window_size["width"] + picture_margin, window_size["height"]))
+window_surface = pygame.display.set_mode(
+    (window_size["width"] + picture_margin, window_size["height"])
+)
 pygame.display.set_caption(title)
 # font settings
 font = pygame.font.SysFont(None, 25)
 
 # take photo
-CAM_DIR  = "./cache/"
+CAM_DIR = "./cache/"
 ranges = 1
-currentPic = pygame.transform.scale(pygame.image.load("cache/fake.png"), (picture_margin, window_size["height"]))
+currentPic = pygame.transform.scale(
+    pygame.image.load("cache/fake.png"), (picture_margin, window_size["height"])
+)
 while ranges != 9:
     dt = main_clock.tick(float(system_fps))
     for event in pygame.event.get():
@@ -69,11 +74,23 @@ while ranges != 9:
             terminate()
         if event.type == KEYDOWN:
             if event.key == K_SPACE:
-                save_dir_filename = CAM_DIR + str(ranges) +".png"
-                subprocess.call(["fswebcam", "-d", "/dev/video0", save_dir_filename, "--resolution", "640x480"])
+                save_dir_filename = CAM_DIR + str(ranges) + ".png"
+                subprocess.call(
+                    [
+                        "fswebcam",
+                        "-d",
+                        "/dev/video0",
+                        save_dir_filename,
+                        "--resolution",
+                        "640x480",
+                    ]
+                )
                 _take_sound = AudioSegment.from_wav("./sounds/take.wav")
                 play(_take_sound)
-                currentPic = pygame.transform.scale(pygame.image.load("cache/" + str(ranges) + ".png"), (picture_margin, window_size["height"]))
+                currentPic = pygame.transform.scale(
+                    pygame.image.load("cache/" + str(ranges) + ".png"),
+                    (picture_margin, window_size["height"]),
+                )
                 ranges += 1
             if event.key == K_RETURN:
                 ranges = 9
@@ -81,12 +98,16 @@ while ranges != 9:
     window_surface.fill(black_color)
     # select font
     render_text = font.render(
-        "SPACE TO TAKE" + str(ranges) +" / 8 PHOTOS OR ENTER TO SKIP:", True, white_color
+        "SPACE TO TAKE" + str(ranges) + " / 8 PHOTOS OR ENTER TO SKIP:",
+        True,
+        white_color,
     )
-    render_text_rect = render_text.get_rect(center=(window_size["width"] / 2, float(window_size["height"]) / 2))
+    render_text_rect = render_text.get_rect(
+        center=(window_size["width"] / 2, float(window_size["height"]) / 2)
+    )
     window_surface.blit(render_text, render_text_rect)
 
-    window_surface.blit(currentPic, (window_size["width"],0))
+    window_surface.blit(currentPic, (window_size["width"], 0))
 
     pygame.display.update()
 
@@ -112,33 +133,37 @@ while project_name == "":
 
     window_surface.fill(black_color)
     # select font
-    render_text = font.render(
-            "select one project (space to go):", True, white_color
+    render_text = font.render("select one project (space to go):", True, white_color)
+    render_text_rect = render_text.get_rect(
+        center=(
+            window_size["width"] / 2,
+            float(window_size["height"]) / float(len(project_list) + 3),
         )
-    render_text_rect = render_text.get_rect(center=(window_size["width"] / 2, float(window_size["height"]) / float(len(project_list) + 3)))
+    )
     window_surface.blit(render_text, render_text_rect)
 
     for i, v in enumerate(project_list):
         # select font
         if i == selected_project:
-            render_text = font.render(
-            "> *(" + v + ")", True, white_color
-            )
+            render_text = font.render("> *(" + v + ")", True, white_color)
         else:
-            render_text = font.render(
-            v, True, white_color
+            render_text = font.render(v, True, white_color)
+        render_text_rect = render_text.get_rect(
+            center=(
+                window_size["width"] / 2,
+                float(window_size["height"]) / float(len(project_list) + 3) * (i + 3),
             )
-        render_text_rect = render_text.get_rect(center=(window_size["width"] / 2, float(window_size["height"]) / float(len(project_list) + 3) * (i + 3)))
+        )
         window_surface.blit(render_text, render_text_rect)
     pygame.display.update()
 
 # LOADING
 window_surface.fill(black_color)
 # select font
-render_text = font.render(
-        "LOADING...", True, white_color
-    )
-render_text_rect = render_text.get_rect(center=(window_size["width"] / 2, float(window_size["height"]) / 2))
+render_text = font.render("LOADING...", True, white_color)
+render_text_rect = render_text.get_rect(
+    center=(window_size["width"] / 2, float(window_size["height"]) / 2)
+)
 window_surface.blit(render_text, render_text_rect)
 pygame.display.update()
 
@@ -179,10 +204,23 @@ for json in d:
         sample2_list.append("./projects/" + project_name + "/ambient/" + json["data"])
         sample2_json.append(json["data"])
 
+# images load
+image_list = []
+current_image = 0
+
+for i in range(8):
+    image_list = image_list.append(
+        pygame.transform.scale(
+            pygame.image.load("cache/" + str(i + 1) + ".png"),
+            (picture_margin, window_size["height"]),
+        )
+    )
+
 
 class SoundSquare:
     # audio cube init
     def __init__(self, audio_file, x_pos, y_pos, track_num):
+        self.number = track_num
         self.sizex = blockSizex
         self.sizey = blockSizey
         self.off = pygame.image.load("images/off.png").convert_alpha()
@@ -301,6 +339,8 @@ def collide(time_bar, track_list, mod_select):
                         sound_square.twin_sound.play()
                     else:
                         sound_square.sound.play()
+
+                    current_image = sound_square.number
 
 
 # set up sound squares
@@ -443,5 +483,7 @@ while True:
         collide(time_bar, track_list, mod_select)
     window_surface.blit(time_bar_image, time_bar)
     window_surface.blit(bak_image, bak_bar)
+
+    window_surface.blit(image_list[current_image], (window_size["width"], 0))
 
     pygame.display.update()
