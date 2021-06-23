@@ -58,12 +58,22 @@ while project_name == "":
     for event in pygame.event.get():
         if event.key == K_SPACE:
             project_name = project_list[selected_project]
+        if event.type == KEYDOWN:
+            if event.key == K_UP:
+                selected_project -= 1
+                selected_project = max(0, selected_project)
+            if event.key == K_DOWN:
+                selected_project += 1
+                selected_project = min(len(project_list) - 1, selected_project)
 
     window_surface.fill(black_color)
+    # select font
+    render_text = font.render(
+            "select one project (space to go):", True, white_color
+        )
+    render_text_rect = render_text.get_rect(center=(window_size["width"] / 2, float(window_size["height"]) / float(len(project_list) + 2)))
+    window_surface.blit(render_text, render_text_rect)
     pygame.display.update()
-
-
-
 
 
 # bar image load
