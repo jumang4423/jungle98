@@ -96,6 +96,15 @@ while project_name == "":
         window_surface.blit(render_text, render_text_rect)
     pygame.display.update()
 
+# LOADING
+window_surface.fill(black_color)
+# select font
+render_text = font.render(
+        "LOADING...", True, white_color
+    )
+render_text_rect = render_text.get_rect(center=(window_size["width"] / 2, float(window_size["height"]) / 2))
+window_surface.blit(render_text, render_text_rect)
+pygame.display.update()
 
 # bar image load
 time_bar_image = pygame.image.load("images/bar.png").convert()
