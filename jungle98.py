@@ -29,6 +29,12 @@ system_fps = 60.0
 s_tempo = 4 * (
     16 / sequence_number
 )  # float(blockSizex * tempo) / float(60.0 * system_fps)
+
+# terminate function
+def terminate():
+    pygame.quit()
+    sys.exit()
+
 # mixer inits
 pygame.mixer.pre_init(
     audioSettings["frequency"],
@@ -56,6 +62,8 @@ while project_name == "":
     dt = main_clock.tick(float(system_fps))
     # stupid keyboard input
     for event in pygame.event.get():
+        if event.type == QUIT:
+            terminate()
         if event.type == KEYDOWN:
             if event.key == K_UP:
                 selected_project -= 1
@@ -73,6 +81,19 @@ while project_name == "":
         )
     render_text_rect = render_text.get_rect(center=(window_size["width"] / 2, float(window_size["height"]) / float(len(project_list) + 2)))
     window_surface.blit(render_text, render_text_rect)
+
+    for i, v in enumerate(project_list):
+        # select font
+        if i == selected_project:
+            render_text = font.render(
+            "> *(" + v + ")", True, white_color
+            )
+        else:
+            render_text = font.render(
+            v, True, white_color
+            )
+        render_text_rect = render_text.get_rect(center=(window_size["width"] / 2, float(window_size["height"]) / float(len(project_list) + 2) * (i + 3)))
+        window_surface.blit(render_text, render_text_rect)
     pygame.display.update()
 
 
@@ -218,12 +239,6 @@ def render_text(
         )
     render_text_rect = render_text.get_rect(topleft=(x, y))
     window_surface.blit(render_text, render_text_rect)
-
-
-# terminate function
-def terminate():
-    pygame.quit()
-    sys.exit()
 
 
 # Check for collision between time bar and 'on' sound square
