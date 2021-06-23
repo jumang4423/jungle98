@@ -51,8 +51,8 @@ pygame.mixer.pre_init(
 pygame.mixer.init()
 pygame.init()
 # Colors
-black_color = (0, 0, 0)
-white_color = (200, 200, 255)
+black_color = (40, 20, 20)
+white_color = (200, 255, 200)
 main_clock = pygame.time.Clock()
 window_surface = pygame.display.set_mode(
     (window_size["width"] + picture_margin, window_size["height"])
