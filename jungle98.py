@@ -59,7 +59,7 @@ font = pygame.font.SysFont(None, 25)
 # take photo
 CAM_DIR  = "./cache/"
 range = 1
-while range == 9:
+while range != 9:
     dt = main_clock.tick(float(system_fps))
     for event in pygame.event.get():
         if event.type == KEYDOWN:
