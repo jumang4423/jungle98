@@ -5,6 +5,9 @@ import pygame
 import sys
 from pygame.locals import *
 
+# import self lib
+import gpio_lib
+
 # sound processing
 from pydub import AudioSegment
 
@@ -16,6 +19,7 @@ blockSizey = blockSizex
 title = "jungle98"
 audioSettings = {"frequency": 44100, "size": -16, "channels": 2, "buffer": 2048}
 window_size = {"width": blockSizex * (sequence_number + 1), "height": blockSizey * 14}
+input_channel = 0
 # sounds sequences
 project_name = "solar_glide"
 tempo = 149
@@ -41,6 +45,15 @@ window_surface = pygame.display.set_mode((window_size["width"], window_size["hei
 pygame.display.set_caption(title)
 # font settings
 font = pygame.font.SysFont(None, 20)
+
+# TODO: music project selection windows goes here
+
+
+
+
+
+
+
 
 # bar image load
 time_bar_image = pygame.image.load("images/bar.png").convert()
@@ -255,7 +268,11 @@ if selected_sample2 != 0:
 
 while True:
     dt = main_clock.tick(float(system_fps))
-    # on_list = []
+
+    # GPIO TEST
+
+    inputVal0 = gpio_lib.readadc(input_channel)
+    print(inputVal0)
 
     # stupid keyboard input
     for event in pygame.event.get():
