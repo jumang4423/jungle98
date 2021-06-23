@@ -59,7 +59,7 @@ window_surface = pygame.display.set_mode(
 )
 pygame.display.set_caption(title)
 # font settings
-font = pygame.font.SysFont(None, 25)
+font = pygame.font.SysFont(None, 23)
 
 # take photo
 CAM_DIR = "./cache/"
@@ -206,7 +206,6 @@ for json in d:
 
 # images load
 image_list = []
-current_image = 0
 
 for i in range(8):
     _image = pygame.transform.scale(
@@ -322,26 +321,6 @@ def render_text(
     render_text_rect = render_text.get_rect(topleft=(x, y))
     window_surface.blit(render_text, render_text_rect)
 
-
-# Check for collision between time bar and 'on' sound square
-def collide(time_bar, track_list, mod_select):
-    for track in track_list:
-        for sound_square in track:
-            if (
-                time_bar.right >= sound_square.rect.left - s_tempo / 2
-                and time_bar.right < sound_square.rect.left + s_tempo / 2
-            ):
-                if sound_square._state == True:
-                    if mod_select == 2:
-                        sound_square.reverse_sound.play()
-                    elif mod_select == 3:
-                        sound_square.twin_sound.play()
-                    else:
-                        sound_square.sound.play()
-
-                    current_image = sound_square.number
-
-
 # set up sound squares
 track_list = []
 for j in range(len(break_list)):
@@ -379,6 +358,8 @@ selected_mode = 0  # x
 selected_seq = 1  # y
 
 seq_tempo = 0  # recover
+
+current_image = 0
 
 # play only sample
 if selected_sample1 != 0:
@@ -479,7 +460,22 @@ while True:
 
     render_text(selected_mode, selected_sample1, selected_sample2, mod_list, mod_select)
     if mod_select != 0:
-        collide(time_bar, track_list, mod_select)
+        # Check for collision between time bar and 'on' sound square
+        for track in track_list:
+            for sound_square in track:
+                if (
+                    time_bar.right >= sound_square.rect.left - s_tempo / 2
+                    and time_bar.right < sound_square.rect.left + s_tempo / 2
+                ):
+                    if sound_square._state == True:
+                        if mod_select == 2:
+                            sound_square.reverse_sound.play()
+                        elif mod_select == 3:
+                            sound_square.twin_sound.play()
+                        else:
+                            sound_square.sound.play()
+                        current_image = sound_square.number
+                    
     window_surface.blit(time_bar_image, time_bar)
     window_surface.blit(bak_image, bak_bar)
 
