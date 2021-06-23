@@ -23,6 +23,7 @@ blockSizey = blockSizex
 title = "jungle98"
 audioSettings = {"frequency": 44100, "size": -16, "channels": 2, "buffer": 2048}
 window_size = {"width": blockSizex * (sequence_number + 1), "height": blockSizey * 14}
+picture_margin = blockSizex * 4
 input_channel = 0
 # sounds sequences
 project_name = ""
@@ -51,7 +52,7 @@ pygame.init()
 black_color = (0, 0, 0)
 white_color = (200, 255, 200)
 main_clock = pygame.time.Clock()
-window_surface = pygame.display.set_mode((window_size["width"], window_size["height"]))
+window_surface = pygame.display.set_mode((window_size["width"] + picture_margin, window_size["height"]))
 pygame.display.set_caption(title)
 # font settings
 font = pygame.font.SysFont(None, 25)
@@ -65,7 +66,7 @@ while range != 9:
         if event.type == KEYDOWN:
             if event.key == K_SPACE:
                 save_dir_filename = CAM_DIR + str(range) +".png"
-                subprocess.call(["fswebcam–d", "/dev/video0", save_dir_filename])
+                subprocess.call(["fswebcam", "-d", "/dev/video0", save_dir_filename, "--resolution", str(picture_margin) + "x"+ str(window_size["height"])])
                 range += 1
     # LOADING
     window_surface.fill(black_color)
