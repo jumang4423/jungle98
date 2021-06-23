@@ -73,7 +73,7 @@ while ranges != 9:
         if event.type == QUIT:
             terminate()
         if event.type == KEYDOWN:
-            if event.key == K_SPACE:
+            if event.key == K_RETURN:
                 save_dir_filename = CAM_DIR + str(ranges) + ".png"
                 subprocess.call(
                     [
@@ -92,13 +92,13 @@ while ranges != 9:
                     (picture_margin, window_size["height"]),
                 )
                 ranges += 1
-            if event.key == K_RETURN:
+            if event.key == K_SPACE:
                 ranges = 9
     # LOADING
     window_surface.fill(black_color)
     # select font
     render_text = font.render(
-        "SPACE TO TAKE" + str(ranges) + " / 8 PHOTOS OR ENTER TO SKIP:",
+        "ENTER TO TAKE" + str(ranges) + " / 8 PHOTOS OR SPACE TO SKIP:",
         True,
         white_color,
     )
@@ -213,7 +213,7 @@ for i in range(8):
             pygame.image.load("cache/" + str(i + 1) + ".png"),
             (picture_margin, window_size["height"]),
         )
-    image_list = image_list.append(_image)
+    image_list.append(_image)
 
 
 class SoundSquare:
