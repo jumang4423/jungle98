@@ -10,7 +10,7 @@ from pygame.locals import *
 import gpio_lib
 
 # import selfie lib
-import picamera
+import subprocess
 
 # sound processing
 from pydub import AudioSegment
@@ -58,7 +58,6 @@ font = pygame.font.SysFont(None, 25)
 
 # take photo
 CAM_DIR  = "./cache/"
-camera = picamera.PiCamera()
 range = 1
 while range == 9:
     dt = main_clock.tick(float(system_fps))
@@ -66,7 +65,7 @@ while range == 9:
         if event.type == KEYDOWN:
             if event.key == K_SPACE:
                 save_dir_filename = CAM_DIR + range +".png"
-                camera.capture(save_dir_filename)
+                subprocess.call(["fswebcam–d", "/dev/video0", save_dir_filename])
                 range += 1
     # LOADING
     window_surface.fill(black_color)
