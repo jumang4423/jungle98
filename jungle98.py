@@ -7,7 +7,7 @@ import os
 from pygame.locals import *
 
 # # import self lib
-import gpio_lib
+# import gpio_lib
 
 # import take selfie lib
 import subprocess
@@ -382,10 +382,10 @@ if selected_sample2 != 0:
 while True:
     dt = main_clock.tick(float(system_fps))
 
-    # # GPIO TEST
+    # # # GPIO TEST
 
-    inputVal0 = gpio_lib.readadc(input_channel)
-    print(inputVal0)
+    # inputVal0 = gpio_lib.readadc(input_channel)
+    # print(inputVal0)
 
     # stupid keyboard input
     for event in pygame.event.get():
