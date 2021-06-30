@@ -7,7 +7,7 @@ import os
 from pygame.locals import *
 
 # # import self lib
-# import gpio_lib
+import gpio_lib
 
 # import take selfie lib
 import subprocess
@@ -384,8 +384,8 @@ while True:
 
     # # GPIO TEST
 
-    # inputVal0 = gpio_lib.readadc(input_channel)
-    # print(inputVal0)
+    inputVal0 = gpio_lib.readadc(input_channel)
+    print(inputVal0)
 
     # stupid keyboard input
     for event in pygame.event.get():
