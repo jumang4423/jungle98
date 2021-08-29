@@ -4,7 +4,7 @@ a sequencer which a school project(CN) written in python3
 
 ***⚠️caution⚠️: jungle98 code is REALLY DIRTY, that DO NOT REFERENCE THIS CODE INTO YOUR CODE***
 
-![main screen](https://drive.google.com/file/d/1Y9SUBlorV-7OoQtBZe5DNZIq95Z0FIIK/view?usp=sharing)
+[DEMO VIDEO](https://drive.google.com/file/d/1Y9SUBlorV-7OoQtBZe5DNZIq95Z0FIIK/view?usp=sharing)
 
 # installation
 
