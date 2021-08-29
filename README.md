@@ -6,6 +6,8 @@ a sequencer which a school project(CN) written in python3
 
 [DEMO VIDEO](https://drive.google.com/file/d/1Y9SUBlorV-7OoQtBZe5DNZIq95Z0FIIK/view?usp=sharing)
 
+![main screen](_img/jungle98.png)
+
 # installation
 
 
